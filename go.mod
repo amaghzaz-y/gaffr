@@ -1,4 +1,4 @@
-module zx-core
+module zx
 
 go 1.23.2
 

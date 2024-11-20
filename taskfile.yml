@@ -1,0 +1,14 @@
+version: "3"
+
+tasks:
+  build:
+    cmds:
+      - go build .
+  simulator:
+    dir: simulator
+    cmds:
+      - npm run dev
+  update:
+    dir: simulator
+    cmds:
+      - npm install
