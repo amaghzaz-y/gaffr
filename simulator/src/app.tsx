@@ -9,7 +9,7 @@ export default function App() {
     <Canvas shadows camera={{ position: [10, 25, 0], fov: 30 }} >
       <ambientLight intensity={1} />
       <pointLight position={[10, 12, 12]} decay={0} intensity={5} />
-      <Grid visible={true} position={[0, -0.001, 0]} args={[24, 24]} cellSize={0.2}
+      <Grid visible={true} position={[0, -0.05, 0]} args={[24, 24]} cellSize={0.2}
         cellThickness={0.5}
         cellColor='#6f6f6f'
         sectionSize={1}

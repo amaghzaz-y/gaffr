@@ -23,8 +23,8 @@ export function getAbsolutePosition(x: number, y: number): [number, number, numb
 }
 
 export function getPosition(x: number, y: number): [number, number, number] {
-    const rx = (x * TABLE_WORLD_HEIGHT / TABLE_HEIGHT)
-    const ry = (y * TABLE_WORLD_WIDTH / TABLE_WIDTH) + TABLE_WORLD_WIDTH / 2
+    const rx = (-x * TABLE_WORLD_HEIGHT / TABLE_HEIGHT) + TABLE_WORLD_WIDTH / 2
+    const ry = (-y * TABLE_WORLD_WIDTH / TABLE_WIDTH) + TABLE_WORLD_HEIGHT / 2
     return [rx, 0, ry]
 }
 
