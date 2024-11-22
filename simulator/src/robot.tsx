@@ -1,10 +1,17 @@
+import { useFrame } from "@react-three/fiber"
 import { useControls } from "leva"
-
+import * as geom from "./geom"
 export default function Robot() {
+    const speed = 1
     const { position, scale, rotation } = useControls("Robot", {
-        position: [5.3, 0, 8.3],
+        position: geom.getPosition(225, 225),
         scale: [1, 1, 1],
         rotation: [0, Math.PI / 2, 0],
+    })
+    useFrame((c, delta) => {
+        const jessy = c.scene.getObjectByName("Jessy")
+        if (!jessy) return
+        jessy.rotation.y += speed * delta
     })
     return (
         <Jessy position={position} scale={scale} rotation={rotation} color={"#ff0000"} />
@@ -13,7 +20,7 @@ export default function Robot() {
 
 const Jessy = ({ position, scale, rotation, color }: { position: [number, number, number], scale: [number, number, number], rotation: [number, number, number], color: string | undefined }) => {
     return (
-        <group position={position} scale={scale} rotation={rotation}>
+        <group name="Jessy" position={position} scale={scale} rotation={rotation}>
             <mesh
                 scale={[1, 1, 1]}
                 position={[0, 1, 0]}

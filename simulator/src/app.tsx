@@ -6,7 +6,7 @@ import Robot from "./robot";
 
 export default function App() {
   return (
-    <Canvas shadows camera={{ position: [15, 25, 0], fov: 28 }}>
+    <Canvas shadows camera={{ position: [10, 25, 0], fov: 30 }} >
       <ambientLight intensity={1} />
       <pointLight position={[10, 12, 12]} decay={0} intensity={5} />
       <Grid visible={true} position={[0, -0.001, 0]} args={[24, 24]} cellSize={0.2}
