@@ -1,15 +1,18 @@
 import { Image } from "@react-three/drei";
 import * as geom from "./geom"
 import { TABLE_WORLD_HEIGHT, TABLE_WORLD_WIDTH } from "./constants";
-import { useControls } from "leva";
+import { useProxy } from "valtio/utils";
+import { tableState } from "./state";
 export default function Table() {
-    const { rotation, scale } = useControls("Table", {
-        rotation: [Math.PI / 2, Math.PI, -Math.PI / 2],
+    const tableStateSnap = useProxy(tableState)
+    const { rotation, scale } = {
+        rotation: [-Math.PI / 2, 0, 0],
         scale: [TABLE_WORLD_HEIGHT, TABLE_WORLD_WIDTH]
-    })
+    }
+    const src = tableStateSnap.grid ? "/grid.webp" : "/playmat.webp"
     return (
         <>
-            <Image scale={scale} rotation={rotation} position={geom.getAbsolutePosition(0, 0)} url="/playmat.webp" />
+            {tableStateSnap.visible && <Image scale={[scale[0], scale[1]]} rotation={[rotation[0], rotation[1], rotation[2]]} position={geom.getAbsolutePosition(0, 0)} url={src} />}
         </>
     )
 }

@@ -10,13 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@phosphor-icons/react": "^2.1.7",
     "@react-three/drei": "^9.115.0",
     "@react-three/fiber": "^8.17.10",
     "@tabler/icons-react": "3.0.0",
     "@types/three": "^0.169.0",
-    "class-variance-authority": "^0.7.0",
-    "leva": "^0.9.35",
     "nanoid": "^5.0.8",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -29,16 +26,8 @@
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.48",
-    "tailwind-merge": "^2.5.4",
-    "tailwind-variants": "^0.2.1",
     "tailwindcss": "^3.4.14",
-    "tailwindcss-animate": "^1.0.7",
     "typescript": "~5.6.2",
     "vite": "^5.4.10"
-  },
-  "overrides": {
-    "leva": {
-      "@radix-ui/react-portal": "1.0.2"
-    }
   }
 }

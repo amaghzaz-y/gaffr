@@ -23,9 +23,21 @@ export function getAbsolutePosition(x: number, y: number): [number, number, numb
 }
 
 export function getPosition(x: number, y: number): [number, number, number] {
-    const rx = (-x * TABLE_WORLD_HEIGHT / TABLE_HEIGHT) + TABLE_WORLD_WIDTH / 2
-    const ry = (-y * TABLE_WORLD_WIDTH / TABLE_WIDTH) + TABLE_WORLD_HEIGHT / 2
+    const rx = (x * TABLE_WORLD_HEIGHT / TABLE_HEIGHT) - TABLE_WORLD_HEIGHT / 2
+    const ry = (-y * TABLE_WORLD_WIDTH / TABLE_WIDTH) + TABLE_WORLD_WIDTH / 2
     return [rx, 0, ry]
 }
 
+export function getAngleRadian3(x: number, y: number, z: number): [number, number, number] {
+    return [x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180]
+}
 
+export function getScale(x: number, y: number, z: number): [number, number, number] {
+    const ratio = TABLE_WORLD_HEIGHT / TABLE_HEIGHT
+    return [x * ratio, y * ratio, z * ratio]
+}
+
+export function getLength(size: number): number {
+    const ratio = TABLE_WORLD_HEIGHT / TABLE_HEIGHT
+    return size * ratio
+}

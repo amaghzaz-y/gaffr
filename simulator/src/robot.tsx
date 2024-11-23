@@ -1,29 +1,31 @@
 import { useFrame } from "@react-three/fiber"
-import { useControls } from "leva"
 import * as geom from "./geom"
 import { Gltf } from "@react-three/drei"
 import * as THREE from "three"
+import { useSnapshot } from "valtio"
+import { worldState } from "./state"
 export default function Robot() {
-    const speed = 1
-    const { position, scale, rotation } = useControls("Robot", {
-        position: geom.getPosition(255, 255),
-        scale: [5, 5, 5],
+    const worldStateSnap = useSnapshot(worldState)
+    const { position, scale, rotation } = {
+        position: geom.getPosition(1500, 1000),
+        scale: [6, 6, 6],
         rotation: [Math.PI / 2, 0, 0],
-    })
+    }
     const material = new THREE.MeshPhongMaterial({ color: "purple", transparent: true, opacity: 0.95 })
-    useFrame((c, delta) => {
+    useFrame((c) => {
         const jessy = c.scene.getObjectByName("Jessy")
         if (!jessy) return
         jessy.traverse((o) => {
             if (o instanceof THREE.Mesh) {
-                // o.material.wireframe = true
+                o.material.wireframe = worldStateSnap.wirefame
                 o.material = material
             }
         })
     })
+
     return (
         <>
-            <Gltf receiveShadow castShadow name="Jessy" src="/Robot.gltf" position={[position[0], 1.55, position[2]]} scale={scale} rotation={rotation} useDraco={true} />
+            <Gltf receiveShadow castShadow name="Jessy" src="/Robot.gltf" position={[position[0], 1.85, position[2]]} scale={[scale[0], scale[1], scale[2]]} rotation={[rotation[0], rotation[1], rotation[2]]} useDraco={true} />
             {/* // <Jessy position={position} scale={scale} rotation={rotation} color={"#ff0000"} /> */}
         </>
     )
