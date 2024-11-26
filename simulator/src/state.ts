@@ -24,12 +24,18 @@ export const worldState = proxy<WorldState>({
 
 export interface RobotState {
     target: [number, number, number]
+    current: [number, number, number]
+    targetRotation: number
+    currentRotation: number
     speed: number
     acceleration: number
 }
 
 export const robotState = proxy<RobotState>({
-    target: getPosition(0, 0),
+    target: getPosition(1500, 1000),
+    current: getPosition(0, 0),
+    targetRotation: 0,
+    currentRotation: 0,
     speed: 1,
     acceleration: 1
 })

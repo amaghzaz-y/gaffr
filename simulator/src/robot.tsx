@@ -14,27 +14,55 @@ export default function Robot() {
         rotation: [Math.PI / 2, 0, 0],
     }
     const ref = useRef({ accel: 0 })
-    const material = new THREE.MeshPhongMaterial({ color: "purple", transparent: true, opacity: 0.95 })
-    console.log(ref)
+    const material = new THREE.MeshStandardMaterial({ color: "purple", transparent: true, opacity: 0.95 })
     useFrame((c, delta) => {
         const robot = c.scene.getObjectByName("Jessy")
         if (!robot) return
-        const position = new THREE.Vector3(robot.position.x, 0, robot.position.z);
-        const target = new THREE.Vector3(robotStateSnap.target[0], 0, robotStateSnap.target[2]);
-        const direction = target.clone().sub(position);
-        direction.normalize();
-        if (position.manhattanDistanceTo(target) > 0.01) {
-            ref.current.accel += 0.01
-            robot.translateOnAxis(new THREE.Vector3(direction.x, direction.z, 0), ref.current.accel * delta);
-        } else {
-            ref.current.accel = 0
-        }
-        robot.traverse((o) => {
-            if (o instanceof THREE.Mesh) {
-                o.material.wireframe = worldStateSnap.wirefame
-                o.material = material
+
+        // POSITION HANDLING
+        // {
+        //     const position = new THREE.Vector3(robot.position.x, 0, robot.position.z);
+        //     const target = new THREE.Vector3(robotStateSnap.target[0], 0, robotStateSnap.target[2]);
+        //     const direction = target.clone().sub(position);
+        //     direction.normalize();
+        //     if (position.manhattanDistanceTo(target) > 0.01) {
+        //         ref.current.accel += 0.01
+        //         robot.translateOnAxis(new THREE.Vector3(direction.x, direction.z, 0), ref.current.accel * delta);
+        //         robotState.current = [robot.position.x, 0, robot.position.z]
+        //     } else {
+        //         ref.current.accel = 0
+        //     }
+        // }
+
+        // ROTATION
+        {
+            const target = robotStateSnap.targetRotation;
+            const current = robot.rotation.z;
+            const direction = (target - current) % (Math.PI * 2);
+            if (Math.abs(direction) > 0.02) {
+                ref.current.accel += Math.sign(direction) * 0.01
+                ref.current.accel = Math.min(ref.current.accel, 2)
+                robot.rotateOnAxis(new THREE.Vector3(0, 0, 1), ref.current.accel * delta)
+                robotState.currentRotation = robot.rotation.z
+            } else {
+                robot.rotation.z = robotStateSnap.targetRotation
+                ref.current.accel = 0
             }
-        })
+        }
+
+        // DESIGN
+        {
+            robot.traverse((o) => {
+                if (o instanceof THREE.Mesh) {
+                    o.material.wireframe = worldStateSnap.wirefame
+                    o.material = material
+                }
+            })
+        }
+
+        // NEW STATE
+        robotState.current = [robot.position.x, 0, robot.position.z]
+        robotState.currentRotation = robot.rotation.z
     })
 
     return (

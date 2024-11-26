@@ -7,7 +7,6 @@ import { useSnapshot } from "valtio";
 
 export default function App() {
   const worldStateSnap = useSnapshot(worldState)
-  console.log(worldStateSnap.camera)
   return (
     <Canvas shadows camera={{
       name: "camera",

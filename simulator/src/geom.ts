@@ -28,8 +28,22 @@ export function getPosition(x: number, y: number): [number, number, number] {
     return [rx, 0, ry]
 }
 
+export function getWorldPosition(x: number, y: number): [number, number] {
+    const rx = (x * TABLE_HEIGHT / TABLE_WORLD_HEIGHT) + TABLE_HEIGHT / 2
+    const ry = (-y * TABLE_WIDTH / TABLE_WORLD_WIDTH) + TABLE_WIDTH / 2
+    return [rx, ry];
+}
+
 export function getAngleRadian3(x: number, y: number, z: number): [number, number, number] {
     return [x * Math.PI / 180, y * Math.PI / 180, z * Math.PI / 180]
+}
+
+export function getAngleRadian(val: number): number {
+    return val * Math.PI / 180
+}
+
+export function getAngleDegree(val: number): number {
+    return val * 180 / Math.PI
 }
 
 export function getScale(x: number, y: number, z: number): [number, number, number] {
