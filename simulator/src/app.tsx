@@ -1,12 +1,12 @@
 import { Canvas } from "@react-three/fiber";
-import { CameraControls, GizmoHelper, GizmoViewcube, GizmoViewport, Grid } from "@react-three/drei";
+import { CameraControls, GizmoHelper, GizmoViewcube, GizmoViewport, Grid, Line } from "@react-three/drei";
 import Table from "./table";
 import Robot from "./robot";
-import { worldState } from "./state";
+import { robotState, worldState } from "./state";
 import { useSnapshot } from "valtio";
-
 export default function App() {
   const worldStateSnap = useSnapshot(worldState)
+  const robotStateSnap = useSnapshot(robotState)
   return (
     <Canvas shadows camera={{
       name: "camera",
@@ -28,6 +28,15 @@ export default function App() {
         followCamera={false}
         infiniteGrid={true}
       />
+      <Line
+        points={[[robotStateSnap.current[0], 1, robotStateSnap.current[2]], [robotStateSnap.target[0], 1, robotStateSnap.target[2]], [5, 5, 2]]}
+        segments
+        dashed={true}
+        dashSize={1}
+        gapSize={0.1}
+        lineWidth={15}
+        color={"red"}
+      />
       <Table />
       <Robot />
       <GizmoHelper alignment="bottom-right" margin={[80, 80]}>
@@ -38,7 +47,5 @@ export default function App() {
     </Canvas>
   )
 }
-
-
 
 

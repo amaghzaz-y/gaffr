@@ -41,13 +41,12 @@ export default function Robot() {
         const direction = target.clone().sub(position);
         direction.normalize();
         if (position.manhattanDistanceTo(target) > 0.1) {
-            // console.log(position, target, direction)
             ref.current.movementSpeed += 0.01
             ref.current.movementSpeed = Math.min(ref.current.movementSpeed, 2)
             robot.translateOnAxis(new THREE.Vector3(direction.x, direction.z, 0), ref.current.movementSpeed * delta);
             robotState.current = [robot.position.x, 0, robot.position.z]
         } else {
-            // robot.position.set(robotStateSnap.target[0], 0, robotStateSnap.target[1])
+            robot.position.set(robotStateSnap.target[0], 1.85, robotStateSnap.target[2])
             ref.current.movementSpeed = 0
         }
     }
@@ -65,12 +64,12 @@ export default function Robot() {
         robotState.current = [robot.position.x, 0, robot.position.z]
         robotState.currentRotation = robot.rotation.z
     }
+
     const useSelf = (c: RootState) => {
         return c.scene.getObjectByName("Jessy")
     }
 
     useFrame((c, delta) => {
-        // console.log(ref.current.movementSpeed, ref.current.rotationSpeed)
         const robot = useSelf(c)
         if (!robot) return
         if (updateRotation(robot, delta)) updatePosition(robot, delta)

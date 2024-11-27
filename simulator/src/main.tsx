@@ -7,7 +7,7 @@ import Toolbar from './toolbar'
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Suspense fallback={<div>Loading...</div>}>
-      <div className='relative w-screen h-screen bg-gray-700'>
+      <div className='relative w-screen h-screen bg-black'>
         <div className='absolute top-0 left-0 z-10'>
           <Toolbar />
         </div>
