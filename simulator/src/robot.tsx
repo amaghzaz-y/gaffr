@@ -16,7 +16,7 @@ export default function Robot() {
         rotation: [Math.PI / 2, 0, 0],
     }
     const ref = useRef({ rotationSpeed: 0, movementSpeed: 0 })
-    const material = new THREE.MeshStandardMaterial({ color: "purple", transparent: true, opacity: 0.95 })
+    const material = new THREE.MeshStandardMaterial({ color: "purple", transparent: true, opacity: 0.975 })
 
     const updateRotation = (robot: THREE.Object3D, delta: number) => {
         const target = robotStateSnap.targetRotation;
@@ -79,7 +79,7 @@ export default function Robot() {
 
     return (
         <>
-            <Gltf receiveShadow castShadow name="Jessy" src="/Robot.gltf" position={[position[0], 1.85, position[2]]} scale={[scale[0], scale[1], scale[2]]} rotation={[rotation[0], rotation[1], rotation[2]]} useDraco={true} />
+            <Gltf receiveShadow castShadow name="Jessy" src="/robot.gltf" position={[position[0], 1.85, position[2]]} scale={[scale[0], scale[1], scale[2]]} rotation={[rotation[0], rotation[1], rotation[2]]} useDraco={true} />
         </>
     )
 }

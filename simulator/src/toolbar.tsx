@@ -43,6 +43,12 @@ export default function Toolbar() {
                 </label>
                 <input checked={worldStateSnap.wirefame} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { worldState.wirefame = e.target.checked }} />
             </div>
+            <div className="bg-white/20 px-2 py-1 flex justify-between items-center">
+                <label>
+                    Cans:
+                </label>
+                <input checked={worldStateSnap.cans} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { worldState.cans = e.target.checked }} />
+            </div>
             <div className="bg-white/20 px-2 py-1 flex flex-col justify-between">
                 <text className="text-lg">Robot: 1</text>
                 <text>Position: {currentPosition[0].toFixed(2)}: {currentPosition[1].toFixed(2)}</text>
