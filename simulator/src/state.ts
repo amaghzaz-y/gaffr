@@ -1,22 +1,20 @@
 import { proxy } from "valtio"
 import { getPosition } from "./geom"
 
-export interface TableState {
-    grid: boolean,
-    visible: boolean
-}
-export const tableState = proxy<TableState>({
-    grid: false,
-    visible: true,
-})
 
 export interface WorldState {
+    tableGrid: boolean,
+    tablePlaymat: boolean,
+    tableVisible: boolean,
     camera: [number, number, number]
     wirefame: boolean
     grid: boolean
 }
 
 export const worldState = proxy<WorldState>({
+    tableGrid: false,
+    tablePlaymat: true,
+    tableVisible: true,
     camera: [10, 25, 0],
     wirefame: false,
     grid: true

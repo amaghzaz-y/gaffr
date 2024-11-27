@@ -1,12 +1,11 @@
 import { useSnapshot } from "valtio"
-import { robotState, tableState, worldState } from "./state"
+import { robotState, worldState } from "./state"
 import { useState } from "react"
 import * as geom from "./geom"
 
 export default function Toolbar() {
     const [target, setTarget] = useState([0, 0, 0]) // X,Y,ROTATION
     const worldStateSnap = useSnapshot(worldState)
-    const tableStateSnap = useSnapshot(tableState)
     const robotStateSnap = useSnapshot(robotState)
     const currentPosition = geom.getWorldPosition(robotStateSnap.current[0], robotStateSnap.current[2])
     return (
@@ -16,15 +15,21 @@ export default function Toolbar() {
             </div>
             <div className="bg-white/20 px-2 py-1 flex justify-between items-center">
                 <label>
-                    Table visible:
+                    Table:
                 </label>
-                <input checked={tableStateSnap.visible} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { tableState.visible = e.target.checked }} />
+                <input checked={worldStateSnap.tableVisible} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { worldState.tableVisible = e.target.checked }} />
             </div>
             <div className="bg-white/20 px-2 py-1 flex justify-between items-center">
                 <label>
-                    Table grid:
+                    Table Playmat:
                 </label>
-                <input checked={tableStateSnap.grid} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { tableState.grid = e.target.checked }} />
+                <input checked={worldStateSnap.tablePlaymat} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { worldState.tablePlaymat = e.target.checked }} />
+            </div>
+            <div className="bg-white/20 px-2 py-1 flex justify-between items-center">
+                <label>
+                    Table Grid:
+                </label>
+                <input checked={worldStateSnap.tableGrid} className="w-[1.25rem] h-[1.25rem]" type="checkbox" onChange={(e) => { worldState.tableGrid = e.target.checked }} />
             </div>
             <div className="bg-white/20 px-2 py-1 flex justify-between items-center">
                 <label>
