@@ -5,6 +5,7 @@ import * as THREE from "three"
 import { useSnapshot } from "valtio"
 import { robotState, worldState } from "./state"
 import { useRef } from "react"
+import { RapierRigidBody, RigidBody } from "@react-three/rapier"
 
 
 export default function Robot() {
@@ -17,7 +18,7 @@ export default function Robot() {
     }
     const ref = useRef({ rotationSpeed: 0, movementSpeed: 0 })
     const material = new THREE.MeshStandardMaterial({ color: "purple", transparent: true, opacity: 0.975 })
-
+    const body = useRef<RapierRigidBody>(null!)
     const updateRotation = (robot: THREE.Object3D, delta: number) => {
         const target = robotStateSnap.targetRotation;
         const current = robot.rotation.z;
@@ -38,7 +39,9 @@ export default function Robot() {
     const updatePosition = (robot: THREE.Object3D, delta: number) => {
         const position = new THREE.Vector3(robot.position.x, 0, robot.position.z);
         const target = new THREE.Vector3(robotStateSnap.target[0], 0, robotStateSnap.target[2]);
-        const direction = target.clone().sub(position);
+        const direction = new THREE.Vector3().subVectors(target, position);
+        const axis = new THREE.Vector3(0, 1, 0);
+        direction.applyAxisAngle(axis, robot.rotation.z);
         direction.normalize();
         if (position.manhattanDistanceTo(target) > 0.1) {
             ref.current.movementSpeed += 0.01
@@ -75,11 +78,16 @@ export default function Robot() {
         if (updateRotation(robot, delta)) updatePosition(robot, delta)
         updateDesign(robot, delta)
         updateState(robot)
+        // body.
+        // body.current.setTranslation({ x: robot.position.x, y: 1.87, z: robot.position.z }, false)
+        // body.current.setRotation({ x: robot.rotation.x, y: robot.rotation.y, z: robot.rotation.z, w: 0 }, false)
     })
 
     return (
         <>
-            <Gltf receiveShadow castShadow name="Jessy" src="/robot.gltf" position={[position[0], 1.85, position[2]]} scale={[scale[0], scale[1], scale[2]]} rotation={[rotation[0], rotation[1], rotation[2]]} useDraco={true} />
+            <RigidBody ref={body} name="Jessy" type="dynamic" colliders={"hull"} position={[position[0], 5.97, position[2]]} rotation={[rotation[0], rotation[1], rotation[2]]}>
+                <Gltf receiveShadow castShadow src="/robot.gltf" scale={[scale[0], scale[1], scale[2]]} useDraco={true} />
+            </RigidBody>
         </>
     )
 }

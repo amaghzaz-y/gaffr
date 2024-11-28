@@ -10,6 +10,7 @@ export interface WorldState {
     wirefame: boolean
     grid: boolean
     cans: boolean
+    orthographic: boolean
 }
 
 export const worldState = proxy<WorldState>({
@@ -19,7 +20,8 @@ export const worldState = proxy<WorldState>({
     camera: [10, 25, 0],
     wirefame: false,
     grid: true,
-    cans: true
+    cans: true,
+    orthographic: false
 })
 
 export interface RobotState {
