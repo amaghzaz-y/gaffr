@@ -1,6 +1,6 @@
 import { RootState, useFrame } from "@react-three/fiber"
 import * as geom from "./geom"
-import { Gltf } from "@react-three/drei"
+import { Gltf, Line } from "@react-three/drei"
 import * as THREE from "three"
 import { useSnapshot } from "valtio"
 import { robotState, worldState } from "./state"
@@ -82,6 +82,14 @@ export default function Robot() {
     return (
         <>
             <Gltf name="Jessy" receiveShadow position={[position[0], 5.97, position[2]]} rotation={[rotation[0], rotation[1], rotation[2]]} castShadow src="/robot.gltf" scale={[scale[0], scale[1], scale[2]]} useDraco={true} />
+            <Line
+                points={[[robotStateSnap.current[0], 1, robotStateSnap.current[2]], [robotStateSnap.target[0], 1, robotStateSnap.target[2]]]}
+                dashed={true}
+                dashSize={1}
+                gapSize={0.1}
+                lineWidth={15}
+                color={"red"}
+            />
         </>
     )
 }
