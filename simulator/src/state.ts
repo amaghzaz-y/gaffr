@@ -19,7 +19,7 @@ export const worldState = proxy<WorldState>({
     tableVisible: true,
     camera: [10, 25, 0],
     wirefame: false,
-    grid: true,
+    grid: false,
     cans: true,
     orthographic: false
 })
