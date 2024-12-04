@@ -4,16 +4,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "node --watch --experimental-strip-types --experimental-transform-types src/index.ts"
+    "dev": "tsx watch src"
   },
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
+  "devDependencies": {
+    "@types/ws": "^8.5.13",
     "tsx": "^4.19.2",
     "ws": "^8.18.0"
   },
-  "devDependencies": {
-    "@types/ws": "^8.5.13"
-  }
+  "extensionDependencies": []
 }
